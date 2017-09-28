@@ -1,60 +1,46 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{title}}!
-  </h1>
-</div>
 <div class="container">
-  <form class="example-form">
-    <div class="row">
-      <div class="col-sm-6">
-        <md-form-field class="example-full-width">
-          <input mdInput placeholder="First Name" >
-        </md-form-field>
+    <form>
+    <h1> Contact Form </h1>
+      <div class="row">
+          <md-form-field class="half-width">
+            <input mdInput placeholder="First Name" >
+          </md-form-field>
+          <md-form-field class = "half-width">
+            <input mdInput placeholder="Last Name" >
+          </md-form-field>
       </div>
-      <div class="col-sm-6">
-        <md-form-field class="example-full-width">
-          <input mdInput placeholder="Last Name" >
-        </md-form-field>
+      <div class="row">
+          <md-form-field>
+              <input mdInput placeholder="Gender" >
+          </md-form-field>
+          <md-form-field>
+            <input mdInput [mdDatepicker]="picker" placeholder="Date of Birth">
+            <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
+            <md-datepicker #picker></md-datepicker>
+          </md-form-field>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-6">
-        <md-form-field class="example-full-width">
-            <input mdInput placeholder="Gender" >
-        </md-form-field>
-      </div>
-      <div class="col-sm-6">
-        <md-form-field>
-          <input mdInput [mdDatepicker]="picker" placeholder="Date of Birth">
-          <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
-          <md-datepicker #picker></md-datepicker>
-        </md-form-field>
-      </div>
-    </div>
-    <div class="row">
-      <div className="col-sm-12">
-        <md-select placeholder="Country" name="country">
-          <md-option *ngFor="let country of countries" [value]="country.name">
-            {{country.name}}
-          </md-option>
-        </md-select>
-        </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-3">
-          <md-select placeholder="State" name="state">
-            <md-option *ngFor="let state of states" [value] = "state.abbr">
-              {{state.abbr}}
+      <div class="select-container">
+          <md-select placeholder="Country" name="country">
+            <md-option *ngFor="let country of countries" [value]="country.name">
+              {{country.name}}
             </md-option>
           </md-select>
       </div>
-      <div class="col-sm-9">
-        <md-select placeholder = "City" name="city">
-          
-        </md-select>
+      <div class="row">
+        <div class="one-fourth">
+            <md-select placeholder="State" name="state">
+              <md-option *ngFor="let state of states" [value] = "state.abbr">
+                {{state.abbr}}
+              </md-option>
+            </md-select>
+            </div>
+          <div class="three-fourth">
+          <md-select class="three-fourth" placeholder = "City" name="city">
+            
+          </md-select>
+          </div>
       </div>
-    </div>
-  </form>
+    </form>
 </div>
 
