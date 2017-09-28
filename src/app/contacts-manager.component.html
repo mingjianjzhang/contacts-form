@@ -1,0 +1,103 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="container">
+  <div class="one-half form-container">
+    <form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)">
+
+    <h1> Contact Form </h1>
+      <div *ngIf="!showCropper" class="file-upload">
+          <input id="photo-input" type="file" (change)="fileChangeListener($event)">
+          <label for="photo-input">
+            <img width="200" src="https://myspace.com/common/images/user.png" />
+          </label>
+      </div>
+      <div class="cropper-container">
+        <span *ngIf="showCropper">
+          <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+        </span>
+        <br>
+        <span class="result rounded" *ngIf="data.image" >
+            <img [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
+        </span>
+      </div>
+      <div class="row">
+        <div class="half-width">
+          <md-form-field>
+            <input mdInput placeholder="First Name" [(ngModel)]="model.first_name" name="first_name" >
+          </md-form-field>
+        </div>
+        <div class="half-width">
+          <md-form-field>
+            <input mdInput placeholder="Last Name" [(ngModel)]="model.last_name" name="last_name" >
+          </md-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="half-width">
+          <md-select class="full-width-select" [(ngModel)]="model.gender" name="gender" placeholder="Gender">
+            <md-option value="Male"> Male </md-option> 
+            <md-option value="Female"> Female </md-option>
+          </md-select>
+        </div>
+        <div class="half-width">
+          <md-form-field>
+            <input mdInput [(ngModel)]="model.dob" [mdDatepicker]="picker" name="dob" placeholder="Date of Birth">
+            <md-datepicker-toggle mdSuffix [for]="picker"></md-datepicker-toggle>
+            <md-datepicker #picker></md-datepicker>
+          </md-form-field>
+        </div>
+      </div>
+      <div class="row">
+          <md-select [(ngModel)]="model.country" class="full-width-select" placeholder="Country" name="country">
+            <md-option *ngFor="let country of countries" [value]="country.name">
+              {{country.name}}
+            </md-option>
+          </md-select>
+      </div>
+
+      <div class="row">
+        <div class="one-fourth">
+          <md-select [(ngModel)]="model.state" class="full-width-select" placeholder="State" name="state">
+            <md-option *ngFor="let state of states" [value] = "state.abbr">
+              {{state.abbr}}
+            </md-option>
+          </md-select>
+          </div>
+        <div class="three-fourth">
+          <md-select [(ngModel)]="model.city" class="full-width-select" placeholder = "City" name="city">
+             <md-option *ngFor="let state of states" [value] = "state.abbr">
+              {{state.abbr}}
+            </md-option>
+          </md-select>
+        </div>
+      </div>
+     <button type="submit" md-raised-button color="warn"> Submit </button>
+
+    </form>
+  </div>
+  <div class="one-half contacts-container">
+    <h1> Contacts </h1>
+    <div class="contacts-list">
+    <md-accordion class="contacts-accordion">
+      <md-expansion-panel  class="contact-item" *ngFor="let contact of contacts">
+        <md-expansion-panel-header>
+          <md-panel-title>
+            <md-icon>account_circle</md-icon>
+          </md-panel-title>
+          <md-panel-description>
+            <p>{{contact.first_name}} {{contact.last_name}} </p>
+          </md-panel-description>
+        </md-expansion-panel-header>
+        <div class="contact-container">
+          <img width='200' src="https://myspace.com/common/images/user.png">
+          <div class="contact-info">
+            <p>Gender: {{contact.gender}} </p>
+            <p>DOB: {{contact.dob}}
+            <p>Home: {{contact.city}}, {{contact.state}}, {{contact.country}} </p>
+          </div>
+        </div>
+      </md-expansion-panel>
+    </md-accordion>
+    </div>
+  </div>
+</div>
+
