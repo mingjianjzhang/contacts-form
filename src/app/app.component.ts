@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import CountryList from "country-list";
+import us from 'us';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Contact Form';
+  title = 'Contact Formddddd';
+  countries = CountryList().getData();
+  states = us.STATES
+  ngOnInit(): void {
+  	console.log(this.countries);
+  	console.log(this.states);
+  }
 }
