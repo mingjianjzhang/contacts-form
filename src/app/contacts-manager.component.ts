@@ -23,15 +23,21 @@ export class ContactsManagerComponent implements OnInit {
   data:any;
   contacts:any;
   cropperSettings: CropperSettings;
-
-  model = Contact
+  img_blob: any;
+  image_src: any;
+  model = Contact;
 
   submitted = false;
 
   constructor(private contactService: ContactService, private loginService: LoginService) {
       this.cropperSettings = new CropperSettings();
+      this.cropperSettings.croppedWidth =150;
+      this.cropperSettings.croppedHeight = 150;
+      this.cropperSettings.canvasWidth = 200;
+      this.cropperSettings.canvasHeight = 200;
       this.cropperSettings.noFileInput = true;
       this.data = {};
+      this.image_src = "https://myspace.com/common/images/user.png";
   }
      
   onSubmit(contactForm){
@@ -46,10 +52,13 @@ export class ContactsManagerComponent implements OnInit {
   // TODO: Remove this when we're done
   get diagnostic() { return JSON.stringify(this.model); };
  
+  hideCropper(){
+    this.showCropper = false;
+    this.image_src = this.data.image;
+    this.data = {};
+  }
   @ViewChild('cropper', undefined)
   cropper:ImageCropperComponent;
-  
-
    
   fileChangeListener($event) {
       this.showCropper = true;
@@ -60,7 +69,7 @@ export class ContactsManagerComponent implements OnInit {
       myReader.onloadend = function (loadEvent:any) {
           image.src = loadEvent.target.result;
           that.cropper.setImage(image);
-   
+          console.log(that.cropper, "what is this");
       };
    
       myReader.readAsDataURL(file);

@@ -7,7 +7,7 @@
       <div *ngIf="!showCropper" class="file-upload">
           <input id="photo-input" type="file" (change)="fileChangeListener($event)">
           <label for="photo-input">
-            <img width="200" src="https://myspace.com/common/images/user.png" />
+            <img #cropped width="200" [src]='image_src' />
           </label>
       </div>
       <div class="cropper-container">
@@ -73,6 +73,7 @@
      <button type="submit" md-raised-button color="warn"> Submit </button>
 
     </form>
+    <button md-raised-button color="warn" (click)="hideCropper()"> Hide Cropper </button>
   </div>
   <div class="one-half contacts-container">
     <h1> Contacts </h1>
