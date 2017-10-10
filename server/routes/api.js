@@ -2,6 +2,25 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const Contact = mongoose.model('Contact');
+const multer = require('multer');
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'images/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + '.png')
+  }
+})
+var upload = multer({ storage: storage })
+
+router.post('/images', upload.single('image'), (req, res) => {
+	console.log("about to print some nice files".green)
+	console.log(req.files);
+	console.log("about to print some nice single file".green)
+	console.log(req.file);
+	console.log("about to print some nice req.body".green)
+	console.log(req.body);
+})
 
 router.post('/contacts', (req, res) => {
 	const newContact = new Contact(req.body);

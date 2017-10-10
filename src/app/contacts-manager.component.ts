@@ -3,7 +3,7 @@ import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
 import {NgForm} from '@angular/forms';
 import CountryList from "country-list";
 import us from 'us';
-
+import dataURLToBlob from 'blueimp-canvas-to-blob';
 import { ContactService } from './contact.service';
 import { LoginService } from './login.service';
 import { Contact } from './contact';
@@ -41,9 +41,7 @@ export class ContactsManagerComponent implements OnInit {
   }
      
   onSubmit(contactForm){
-    console.log(contactForm.value, "what shows");
     contactForm.value.user_id = this.user_id;
-    console.log(contactForm.value, "modified with user_id");
     this.contactService.createContact(contactForm.value, (contact) => {
       this.contacts.push(contact);
     });
@@ -55,8 +53,14 @@ export class ContactsManagerComponent implements OnInit {
   hideCropper(){
     this.showCropper = false;
     this.image_src = this.data.image;
+    this.img_blob = dataURLToBlob(this.data.image);
+    var image_file = new FormData();
+    image_file.append("image", this.img_blob);
+    console.log(image_file.get('image'), "should have stuff appended??")
+    this.contactService.uploadProfilePic(image_file);
     this.data = {};
   }
+
   @ViewChild('cropper', undefined)
   cropper:ImageCropperComponent;
    
@@ -69,7 +73,6 @@ export class ContactsManagerComponent implements OnInit {
       myReader.onloadend = function (loadEvent:any) {
           image.src = loadEvent.target.result;
           that.cropper.setImage(image);
-          console.log(that.cropper, "what is this");
       };
    
       myReader.readAsDataURL(file);
@@ -77,10 +80,8 @@ export class ContactsManagerComponent implements OnInit {
   ngOnInit(): void {
     this.loginService.getCurrentUser(user_id => {
       this.user_id = user_id;
-      console.log(user_id, "here's my user_id");
       this.contactService.getContacts(user_id, (contacts)=>{
         this.contacts = contacts;
-        console.log(this.contacts, "this callback in component");
       })
     })
   }

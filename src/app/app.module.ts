@@ -68,6 +68,6 @@ import * as firebase from 'firebase/app';
     ContactService,
     LoginService
   ],
-  bootstrap: [AppComponent, LoginComponent, ContactsManagerComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

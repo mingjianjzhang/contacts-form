@@ -15,6 +15,12 @@ export class ContactService {
 		});
 	}
 
+	uploadProfilePic(picture){
+		console.log(picture.get('image'), "about to upload")
+		this.http.post(`/api/images`, picture).subscribe(data => {
+			console.log(data);
+		})
+	}
 	createContact(contact, callback) {
 		this.http.post("/api/contacts", contact).subscribe((data) => {
 			callback(data.json());
