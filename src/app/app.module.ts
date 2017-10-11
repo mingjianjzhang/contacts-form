@@ -22,8 +22,9 @@ import { ContactsManagerComponent } from './contacts-manager.component';
 
 import { ContactService } from './contact.service';
 import { LoginService } from './login.service';
+import { UploadService } from './upload.service';
 
-import * as firebase from 'firebase/app';
+import * as firebase from 'firebase';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import * as firebase from 'firebase/app';
   providers: [
     MdNativeDateModule,
     ContactService,
-    LoginService
+    LoginService,
+    UploadService
   ],
   bootstrap: [AppComponent]
 })

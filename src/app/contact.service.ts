@@ -22,6 +22,7 @@ export class ContactService {
 		})
 	}
 	createContact(contact, callback) {
+		console.log(contact, "this is in the service..")
 		this.http.post("/api/contacts", contact).subscribe((data) => {
 			callback(data.json());
 		});

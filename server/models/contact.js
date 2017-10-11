@@ -14,7 +14,8 @@ var ContactSchema = new Schema({
 	country: {type: String},
 	state: {type: String},
 	city: {type: String},	
-	user_id: {type: String}
+	user_id: {type: String},
+	image_url: {type: String}
 
 })
 mongoose.model("Contact", ContactSchema);

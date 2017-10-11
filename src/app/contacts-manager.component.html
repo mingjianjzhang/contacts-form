@@ -2,7 +2,6 @@
 <div class="container">
   <div class="one-half form-container">
     <form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)">
-
     <h1> Contact Form </h1>
       <div *ngIf="!showCropper" class="file-upload">
           <input id="photo-input" type="file" (change)="fileChangeListener($event)">
@@ -10,14 +9,16 @@
             <img #cropped width="200" [src]='image_src' />
           </label>
       </div>
-      <div class="cropper-container">
+      <div *ngIf="showCropper" class="cropper-container">
         <span *ngIf="showCropper">
           <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
         </span>
-        <br>
         <span class="result rounded" *ngIf="data.image" >
             <img [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
         </span>
+      </div>
+      <div *ngIf="showCropper">
+        <button md-raised-button color="primary" (click)="hideCropper()"> Save Image </button>
       </div>
       <div class="row">
         <div class="half-width">
@@ -73,7 +74,7 @@
      <button type="submit" md-raised-button color="warn"> Submit </button>
 
     </form>
-    <button md-raised-button color="warn" (click)="hideCropper()"> Hide Cropper </button>
+    
   </div>
   <div class="one-half contacts-container">
     <h1> Contacts </h1>
@@ -89,10 +90,10 @@
           </md-panel-description>
         </md-expansion-panel-header>
         <div class="contact-container">
-          <img width='200' src="https://myspace.com/common/images/user.png">
+          <img width='200' src='{{ contact.image_url ? contact.image_url : "https://myspace.com/common/images/user.png" }}'>
           <div class="contact-info">
             <p>Gender: {{contact.gender}} </p>
-            <p>DOB: {{contact.dob}}
+            <p>DOB: {{convertDate(contact.dob)}}
             <p>Home: {{contact.city}}, {{contact.state}}, {{contact.country}} </p>
           </div>
         </div>

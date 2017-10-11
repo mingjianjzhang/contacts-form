@@ -24,6 +24,7 @@ router.post('/images', upload.single('image'), (req, res) => {
 
 router.post('/contacts', (req, res) => {
 	const newContact = new Contact(req.body);
+	console.log(newContact, "here's a contact".green);
 	newContact.save((err, contact) => {
 		if (err) {
 			res.json(err);
